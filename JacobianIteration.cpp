@@ -1,17 +1,21 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
-#include <random>
-#include <ctime>
-
+#include <string>
+#include <iomanip>
 using namespace std;
 
 int main()
 {
+    string fname;
+    cout<<"load which file?"<<endl;
 
+    getline(cin,fname);
+    ifstream fin;
+    fin.open(fname.c_str());
     int N;
-    cout<<"size of solution?"<<endl;
-    cin>>N;
+
+    fin>>N;
 
     double **A;
     double **D;
@@ -27,34 +31,21 @@ int main()
     for(int i=0; i<N; i++){A[i]=new double[N];}
     for(int i=0; i<N; i++){D[i]=new double[N];}
 
-    default_random_engine gen(time(NULL));
-    uniform_real_distribution<double> rdist(-100.0, 100.0);
-
-    for(int row=0; row<N; row++)
-    {   d=0.0;
-        for(int col=0; col<N; col++)
-        {
-            A[row][col]=rdist(gen);
-            d = d + fabs(A[row][col]);
-        }
-        A[row][row]=d;
-    }
-
-    for(int i=0; i<N; i++)
-    {
-        x[i]=i+1;
-    }
-
-    ///matvec A * x -> b
+    ///fill A matrix
     for(int row=0; row<N; row++)
     {
-        sum=0.0;
         for(int col=0; col<N; col++)
         {
-            sum = sum + A[row][col]*x[col];
+            fin>>A[row][col];
         }
-        b[row]=sum;
+
     }
+    ///fill up b 
+    for(int row=0; row<N; row++)
+    {
+            fin>>b[row];
+    }
+
     ///set up D, xnew and A matrices
     for(int i=0; i<N; i++)
     {
@@ -65,11 +56,12 @@ int main()
 
     ///compute first soln matrix using initial guess
     error = 1.0;
+    cout<<"Error"<<endl;
     while(error>.00000001)
-    {
+    {   
         for(int i=0; i<N; i++)
         {
-            x[i]= xnew[i];
+            x[i]= xnew[i];///reset xold values with xnew values
         }
         for(int i=0; i<N; i++)
         {
@@ -80,7 +72,7 @@ int main()
             }
             xnew[i] = D[i][i]*(b[i]-sum);
             error = fabs(xnew[i]-x[i]);
-            cout<<error<<endl;
-        }
-    }
+        }cout<<error<<endl;
+    }cout<<"Soultion Vector: ";for(int i = 0; i<N; i++){cout<<xnew[i]<<"  ";}
+return 0;
 }
