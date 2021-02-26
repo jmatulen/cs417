@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-/// File: LUsolver.cpp                                           //
+/// File: LUDsolver.cpp                                           //
 /// Author: Joshua Matulenas                                     //
 ///                                                              //
 ///                                                              //
