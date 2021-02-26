@@ -63,18 +63,17 @@ int main()
     for (int k = 0; k<N; k++)
     {
         int maxRow = k;///variable to store row index of maximum value in column
-		double maxValu = A[k][k];///variable to store maximum value in column
+	double maxValu = A[k][k];///variable to store maximum value in column
 
-		///search for max value in current column, store row index
-		for(int i=k; i<N; i++)
-        {
-
-		    if(fabs(A[i][k])>maxValu)
+	///search for max value in current column, store row index
+	for(int i=k; i<N; i++)
+       	{
+	    if(fabs(A[i][k])>maxValu)
             {
-		       maxValu = A[i][k];
-	     	   maxRow = i;
-		    }
-		}
+	       	maxValu = A[i][k];
+	       	maxRow = i;
+	    }
+	}
 
         double temp = 0.0;///holds value to be swapped with value in maxRow
         for(int col = k; col<N+1; col++)
@@ -84,10 +83,10 @@ int main()
             A[maxRow][col] = temp;
         }
 
-		///divide A(row j) by max; {yields 1.0 on diag}
-		for(int col = k; col<N+1; col++)
+	///divide A(row j) by max; {yields 1.0 on diag}
+	for(int col = k; col<N+1; col++)
         {
-		    A[k][col] = A[k][col]/maxValu;
+	    A[k][col] = A[k][col]/maxValu;
         }
 
         ///convert matrix to upper triangular
@@ -103,8 +102,8 @@ int main()
     }
 
 
-	cout<<"A after triangulation: "<<endl;
-	for(int i=0; i<N; i++)
+    cout<<"A after triangulation: "<<endl;
+    for(int i=0; i<N; i++)
     {
         for(int j=0; j<N+1; j++)
         {
@@ -117,20 +116,19 @@ int main()
     x[N-1] = A[N-1][N];
     for (int k = N-2; k >=0; k--)
     {
-          double total = 0.0;
-          for(int j = k+1;j<=N-1;j++)
-          {
-              total = total + A[k][j]*x[j];
-          }
-          x[k] = (A[k][N]-total);
+         double total = 0.0;
+         for(int j = k+1;j<=N-1;j++)
+         {
+             total = total + A[k][j]*x[j];
+         }
+         x[k] = (A[k][N]-total);
     }
 
     cout<<"Solution vector"<<endl;
     for (int i=0; i<N; i++)
     {
-            printf("%lf\n", x[i]);
+         printf("%lf\n", x[i]);
     }
-    
-return 0;
+    return 0;
 }
 
